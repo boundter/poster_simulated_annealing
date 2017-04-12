@@ -20,24 +20,24 @@ Topics to discuss:
 # Hintergrund
 # -----------------------------------------------------------------------------
 
-Simulated Annealing ist ein Verfahren der Numerik. Die Idee dafür stammt aus der Festkörperphysik. Um einen Kristall herzustellen wird ein Körper abgekühlt, je langsamer er abgekühlt wird, desto regelmäßiger ist der resultierende Kristall und desto niedriger ist der energetische Zustand.
+Simulated Annealing ist ein Verfahren der Numerik. Die Idee dafür stammt aus der Festkörperphysik. Um einen Kristall herzustellen wird eine Flüssigkeit abgekühlt. Je langsamer sie abgekühlt wird, desto regelmäßiger ist der resultierende Kristall und desto niedriger ist der energetische Zustand.
 
-Das Simulated Annealing verwendet dasselbe Prinzip des abkühlens für andere Probleme der Optimierung. Die Energie ist dabei eine Kostenfunktion, also zum Beispiel eine Weglänge. Die Temperatur regelt die Änderung des Zustandes, für hohe Temperaturen ist es wahrscheinlicher den Zustand zu wechseln, als für niedrige. Die Zuständsänderung kann aber auch zu einer Erhöhung der Energie führen, wobei solche Änderungen für niedrige Temperaturen immer unwahrscheinlicher werden. So kann aus lokalen Minima der Energie entkommen werden, um das globale Minimum zu finden.
+Das Simulated Annealing verwendet dasselbe Prinzip des abkühlens, aber für Probleme der Optimierung. Die Energie ist dabei eine Kostenfunktion, also zum Beispiel eine Weglänge. Die Temperatur regelt die Änderung des Zustandes, für hohe Temperaturen ist es wahrscheinlicher den Zustand zu wechseln, als für niedrige. Die Zuständsänderung kann dabei auch zu einer Erhöhung der Energie führen, wobei solche Änderungen für niedrige Temperaturen immer unwahrscheinlicher werden. So kann aus lokalen Minima der Energie entkommen werden, um das globale Minimum zu finden.
 
 # -----------------------------------------------------------------------------
 # Problemstellung
 # -----------------------------------------------------------------------------
 
-Das "Traveling-Salesman" Problem soll gelöst werden. Es beschreibt die geschlossene Wegstrecke durch mehrere Städte, wobei keine Stadt mehr als einmal besucht werden darf. Die brute-force Lösung skaliert wie N! und ist somit ungeeignet für große eine große Anzahl von Städten.
+Das "Traveling-Salesman" Problem soll mit dem Simulated Annealing gelöst werden. Es beschreibt die geschlossene Wegstrecke durch mehrere Städte, wobei keine Stadt mehr als einmal besucht werden darf. Die brute-force Lösung skaliert wie N! und ist somit ungeeignet für große eine große Anzahl von Städten.
 
 Der kürzeste Weg durch 76 deutsche Städte soll gefunden werden und die Unterschiede zwischen zwei Zuständsänderungen sollen charakterisiert werden. Die Zustandsänderungen sind Flips in der Reihenfolge der Städte:
 
 i) Die Reihenfolge von zwei zufälligen Städten wird vertauscht
 ii) Die Reihenfolge zwischen zwei zufälligen Städten wird vertauscht
 
-Nach einem Flip verändert sich die Länge L des Gesamtweges. Ist die neue Länge kürzer wird sie immer angenommen, ist sie aber länger wird sie mit der Wahrscheinlichkeit
+Nach einem Flip verändert sich die Länge L des Gesamtweges. Ist die neue Länge kürzer wird sie immer angenommen, ist sie aber länger wird sie nur mit der Wahrscheinlichkeit
 # equation
-angenommen, wobei T die Temperatur ist.
+angenommen, wobei T die Temperatur ist. Das erinnert an die Boltzmann-Verteilung.
 
 # -----------------------------------------------------------------------------
 # Simulation
@@ -45,7 +45,7 @@ angenommen, wobei T die Temperatur ist.
 
 Die numerische Simulation wird in einem C++-Programm durchgeführt. Zuerst müssen die Längen- und Breitengrade der Städte mittels der Haversine-Formel in Distanzen zwischen den Städten umgerechnet werden. Aus der Reihenfolge der Städte kann die Wegstrecke mittels der Distanzen einfach berechnet werden.
 
-Um das Abkühhlen zu simulieren wird die Temperatur nach einer gegeben Anzahl von Flips mit einem Cooling-Parameter multipliziert. Je näher er an 1 liegt, desto langsamer wird der Körper abgekühlt.  Die Anzahl der Flips ist zu 100N oder 10N erfolgreiche gesetzt. Die Temperatur startet bei 10000, damit ist sie deutlich größer als eine typische Längenänderunen, was die Qualität der Ergebnisse verbessert. Für jeden Cooling-Parameter werden 100 Simulationen durchgeführt, um die Statistik der Flips beschreiben zu können.
+Um das Abkühhlen zu simulieren wird die Temperatur nach einer gegeben Anzahl von Flips mit einem Cooling-Parameter C multipliziert. Je näher er an 1 liegt, desto langsamer wird der Körper abgekühlt.  Die Anzahl der Flips ist zu 100N oder 10N erfolgreiche gesetzt, je nachdem, was zuerst eintritt. Die Temperatur startet bei 10000. Damit ist sie deutlich größer als eine typische Längenänderunen, was die Qualität der Ergebnisse verbessert. Für jeden Cooling-Parameter werden 100 Simulationen durchgeführt, um die Statistik der Flips beschreiben zu können.
 
 # -----------------------------------------------------------------------------
 # Ergebnisse
@@ -53,9 +53,7 @@ Um das Abkühhlen zu simulieren wird die Temperatur nach einer gegeben Anzahl vo
 
 Die kürzeste gefundene Wegstrecke beträgt 4294,14 km. Eine kürzere Strecke scheint nicht möglich zu sein. Die gefundenen Strecken folgen für festen Cooling-Parameter einer abgeschnittenen Normalverteilung, wie in den Abbildungen ... und ... zu sehen ist. Die Rechenzeit für Flips vom Typ 1 ist kürzer als für Flips vom Typ 2, wobei der Unterschied vor allem bei großen Cooling-Parametern deutlich wird. Die Rechendauern sind in Abbildung ... dargestellt.
 
-Die Ergebnisse der beiden Flips unterscheiden sich deutlich. Flips vom Typ 1 geben im allgemeinen längere Wegstrecken bei gleichem Cooling-Parameter. Auch die Breite der möglichen Strecken ist größer als bei Typ 2. Sind sind also qualitativ schlechter. Allerdings verringert sich Unterschied mit steigendem Cooling-Parameter und zusätzlich verringert sich die Simulationsdauer.
-
-Für niedrige Cooling-Parameter sind Flips vom Typ 2 deutlich besser als Flips vom Typ 1. Die Simulation braucht in etwa dieselbe Zeit, liefert aber deutlich bessere Ergebnisse. Bei einem hohen Cooling-Parameter sind die qualitativen Unterschiede zwischen den beiden Typen nahezu vernachlässigbar, aber die Simulationsdauer für den Typ 1 ist sehr viel kürzer.
+Die Ergebnisse der beiden Flips unterscheiden sich deutlich. Flips vom Typ 1 geben im allgemeinen längere Wegstrecken bei gleichem Cooling-Parameter. Auch die Breite der möglichen Strecken ist größer als bei Typ 2. Sind sind also qualitativ schlechter. Allerdings verringert sich der Unterschied mit steigendem Cooling-Parameter, genauso, wie die Simulationsdauer.
 
 # -----------------------------------------------------------------------------
 # Literatur
