@@ -68,4 +68,4 @@ ax.set_ylim(0., 25.)
 ax.legend(loc='best')
 
 os.chdir('../plt')
-fig.savefig('time.pdf', dpi=300)
+fig.savefig('time.pdf', transparent=True, dpi=300)
