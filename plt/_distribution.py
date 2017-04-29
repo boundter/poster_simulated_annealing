@@ -5,6 +5,9 @@ from scipy.special import erf
 import csv
 import os
 
+
+cm = plt.get_cmap('copper')
+
 # All our data-files are saved in the folder data
 os.chdir('../data')
 files = os.listdir('.')
@@ -57,6 +60,12 @@ def GaussianDistribution(length, mean, sterr):
                     (length - mean)/(2*variance))*2/(np.sqrt(variance) *
                     (1 - erf((l_min - mean)/np.sqrt(2*variance))))
 
+def update_colors(ax):
+    lines = ax.lines
+    colors = cm(np.linspace(0, 0.75, len(lines)))
+    for line, c in zip(lines, colors):
+        line.set_color(c)
+
 
 flip_1 = np.array([x[1:] for x in data_list if x[0] == 1])
 flip_2 = np.array([x[1:] for x in data_list if x[0] == 2])
@@ -65,7 +74,7 @@ flip_2 = np.array([x[1:] for x in data_list if x[0] == 2])
 
 fig, ax = plt.subplots()
 ax.set_xlabel('Weglänge [km]')
-ax.set_ylabel('Wahrscheinlichkeit')
+ax.set_ylabel('Wahrscheinlichkeitsdichte')
 ax.grid()
 for element in flip_1:
     values = np.sort(element[1:])
@@ -76,6 +85,7 @@ for element in flip_1:
     x = np.linspace(l_min, 6500, 500)
     ax.plot(x, GaussianDistribution(x, popt[0], popt[1]),
             label=r'$C=%.3f, \mu=%.1f, \sigma=%.1f$' % (element[0], popt[0], popt[1]))
+    update_colors(ax)
 
 ax.set_xlim(4000, 6500)
 ax.set_ylim(0., 4*1e-5)
@@ -96,6 +106,7 @@ for element in flip_2:
     x = np.linspace(l_min, 6500, 500)
     ax.plot(x, GaussianDistribution(x, popt[0], popt[1]),
             label=r'$C=%.3f, \mu=%.1f, \sigma=%.1f$' % (element[0], popt[0], popt[1]))
+    update_colors(ax)
 
 ax.set_xlim(4000, 6500)
 ax.set_ylim(0., 4*1e-5)
