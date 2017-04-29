@@ -44,9 +44,9 @@
   \column{0.8}
   \block{Hintergrund}
   {
-    Simulated Annealing ist ein Verfahren der Numerik. Die Idee dafür stammt aus der Festkörperphysik. Um einen Kristall herzustellen wird eine Flüssigkeit abgekühlt. Je langsamer sie abgekühlt wird, desto regelmäßiger ist der resultierende Kristall und desto niedriger ist der energetische Zustand.
+    Simulated Annealing ist ein Verfahren der Numerik. Es verwendet eine Idee der Festkörperphysik. Um möglichst reine und gleichmäßige Kristalle herzustellen wird ein Festkörper erhitzt und dann langsam abgekühlt. Durch das langsame Kühlen finden die Moleküle ihren niedrigsten energetisch Zustand besser, als durch ein schnelles abkühlen.
 
-    Das Simulated Annealing verwendet dasselbe Prinzip des abkühlens, aber für Probleme der Optimierung. Die Energie ist dabei eine Kostenfunktion, also zum Beispiel eine Weglänge. Die Temperatur regelt die Änderung des Zustandes, für hohe Temperaturen ist es wahrscheinlicher den Zustand zu wechseln, als für niedrige. Die Zuständsänderung kann dabei auch zu einer Erhöhung der Energie führen, wobei solche Änderungen für niedrige Temperaturen immer unwahrscheinlicher werden. So kann aus lokalen Minima der Energie entkommen werden, um das globale Minimum zu finden.
+    Das Simulated Annealing verwendet dasselbe Prinzip des abkühlens, aber für Probleme der Optimierung. Die Energie ist dabei eine Kostenfunktion, also zum Beispiel eine Weglänge. Die Temperatur regelt die Änderung des Zustandes: für hohe Temperaturen ist es wahrscheinlicher, den Zustand zu wechseln, als für niedrige. Die Zuständsänderung kann dabei auch zu einer Erhöhung der Energie führen, wobei solche Änderungen für niedrige Temperaturen immer unwahrscheinlicher werden. So kann aus lokalen Minima der Energie entkommen werden, um das globale Minimum zu finden.
     }
   \column{0.1}
 \end{columns}
@@ -55,7 +55,7 @@
   \column{0.4}
   \block{Problemstellung}
   {
-    Das "Traveling-Salesman" Problem soll mit dem Simulated Annealing gelöst werden. Es beschreibt die geschlossene Wegstrecke durch mehrere Städte, wobei keine Stadt mehr als einmal besucht werden darf. Die brute-force Lösung skaliert wie $N!$ und ist somit ungeeignet für große eine große Anzahl von Städten.
+    Das ``Traveling-Salesman'' Problem soll mithilfe von Simulated Annealing gelöst werden. Es beschreibt die geschlossene Wegstrecke durch mehrere Städte, wobei keine Stadt mehrmals besucht werden darf. Die brute-force Lösung skaliert wie $N!$ und ist somit ungeeignet für eine große Anzahl von Städten.
 
     Der kürzeste Weg durch 76 deutsche Städte soll gefunden werden und die Unterschiede zwischen zwei Zuständsänderungen sollen charakterisiert werden. Die Zustandsänderungen sind Flips in der Reihenfolge der Städte:
 
@@ -75,9 +75,9 @@
   \column{0.5}
   \block{Simulation}
   {
-    Die numerische Simulation wird in einem C++-Programm durchgeführt. Zuerst müssen die Längen- und Breitengrade der Städte mittels der Haversine-Formel in Distanzen zwischen den Städten umgerechnet werden. Aus der Reihenfolge der Städte kann die Wegstrecke mittels der Distanzen einfach berechnet werden.
+    Die numerische Simulation wird in einem C++-Programm durchgeführt. Zuerst müssen die Längen- und Breitengrade der Städte mittels der Haversine-Formel in Distanzen zwischen den Städten umgerechnet werden. Aus der Reihenfolge der Städte kann die Wegstrecke mittels der Distanzen direkt berechnet werden.
 
-    Um das Abkühhlen zu simulieren wird die Temperatur nach einer gegeben Anzahl von Flips mit einem Cooling-Parameter $C$ multipliziert. Je näher er an 1 liegt, desto langsamer wird der Körper abgekühlt.  Die Anzahl der Flips ist zu $100N$ oder $10N$ erfolgreiche gesetzt, je nachdem, was zuerst eintritt. Die Temperatur startet bei $10000$. Damit ist sie deutlich größer als eine typische Längenänderunen, was die Qualität der Ergebnisse verbessert. Für jeden Cooling-Parameter werden $100$ Simulationen durchgeführt, um die Statistik der Flips beschreiben zu können.
+    Um das Abkühhlen zu simulieren wird die Temperatur nach einer gegeben Anzahl von Flips mit einem Cooling-Parameter $C$ multipliziert. Je näher er an 1 liegt, desto langsamer wird der Körper abgekühlt.  Die Anzahl der Flips ist zu $100N$ oder $10N$ erfolgreiche gewählt, je nachdem, was zuerst eintritt. Die Temperatur startet bei $10000$. Damit ist sie deutlich größer als eine typische Längenänderunen, was die Qualität der Ergebnisse verbessert. Für jeden Cooling-Parameter werden $100$ Simulationen durchgeführt, um die Statistik der Flips beschreiben zu können.
     }
     \column{0.05}
 \end{columns}
@@ -92,7 +92,7 @@
       \end{tikzfigure}
     \end{minipage}%
     \begin{minipage}{0.4\linewidth}
-      Für die Simulationsdauern gilt, dass die Simulation für Flips vom Typ 1 generell schneller ist, als füir Typ 2 Flips. Vor allem für große Cooling-Parameter ist der Unterschied signifikant.
+      Für die Simulationsdauern zeigt sich, dass die Simulation für Flips vom Typ 1 generell schneller ist, als für Typ 2 Flips. Vor allem für große Cooling-Parameter ist der Unterschied signifikant.
 
       Bei Flips vom Typ 2 wird die Reihenfolge, also die Weglänge drastisch geändert. Der Zustand nach dem Flip ist weniger abhängig von dem Zustand davor, als für die Typ 1 Flips. Damit wird ein größerer Bereich der Konfiguration getestet, aber die Annäherung an ein Minimum ist unwahrscheinlicher, deswegen werden weniger Flips akzeptiert und die Simulation läuft über eine längere Zeit.
     \end{minipage}
