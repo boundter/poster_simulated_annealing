@@ -44,9 +44,9 @@
   \column{0.8}
   \block{Hintergrund}
   {
-    Simulated Annealing ist ein Verfahren der Numerik. Es verwendet eine Idee der Festkörperphysik. Um möglichst reine und gleichmäßige Kristalle herzustellen wird ein Festkörper erhitzt und dann langsam abgekühlt. Durch das langsame Kühlen finden die Moleküle ihren niedrigsten energetisch Zustand besser, als durch ein schnelles abkühlen.
+    Simulated Annealing ist ein Verfahren der Numerik. Es verwendet eine Idee der Festkörperphysik. Um möglichst reine und gleichmäßige Kristalle herzustellen wird ein Festkörper erhitzt und dann langsam abgekühlt. Durch das langsame Kühlen finden die Moleküle ihren niedrigsten energetischen Zustand besser, als durch ein schnelles Abkühlen.
 
-    Das Simulated Annealing verwendet dasselbe Prinzip des abkühlens, aber für Probleme der Optimierung. Die Energie ist dabei eine Kostenfunktion, also zum Beispiel eine Weglänge. Die Temperatur regelt die Änderung des Zustandes: für hohe Temperaturen ist es wahrscheinlicher, den Zustand zu wechseln, als für niedrige. Die Zuständsänderung kann dabei auch zu einer Erhöhung der Energie führen, wobei solche Änderungen für niedrige Temperaturen immer unwahrscheinlicher werden. So kann aus lokalen Minima der Energie entkommen werden, um das globale Minimum zu finden.
+    Das Simulated Annealing verwendet dasselbe Prinzip des Abkühlens, aber für Probleme der Optimierung. Die Energie ist dabei eine Kostenfunktion, also zum Beispiel eine Weglänge. Die Temperatur regelt die Änderung des Zustandes: für hohe Temperaturen ist es wahrscheinlicher, den Zustand zu wechseln, als für niedrige. Die Zustandsänderung kann dabei auch zu einer Erhöhung der Energie führen, wobei solche Änderungen für niedrige Temperaturen immer unwahrscheinlicher werden. So kann aus lokalen Minima der Energie entkommen werden, um das globale Minimum zu finden.
     }
   \column{0.1}
 \end{columns}
@@ -57,7 +57,7 @@
   {
     Das ``Traveling-Salesman'' Problem soll mithilfe von Simulated Annealing gelöst werden. Es beschreibt die geschlossene Wegstrecke durch mehrere Städte, wobei keine Stadt mehrmals besucht werden darf. Die brute-force Lösung skaliert wie $N!$ und ist somit ungeeignet für eine große Anzahl von Städten.
 
-    Der kürzeste Weg durch 76 deutsche Städte soll gefunden werden und die Unterschiede zwischen zwei Zuständsänderungen sollen charakterisiert werden. Die Zustandsänderungen sind Flips in der Reihenfolge der Städte:
+    Der kürzeste Weg durch 76 deutsche Städte soll gefunden werden und die Unterschiede zwischen zwei Zustandsänderungen sollen charakterisiert werden. Die Zustandsänderungen sind Flips in der Reihenfolge der Städte:
 
     \begin{enumerate}
       \item Die Reihenfolge von zwei zufälligen Städten wird vertauscht
@@ -77,7 +77,7 @@
   {
     Die numerische Simulation wird in einem C++-Programm durchgeführt. Zuerst müssen die Längen- und Breitengrade der Städte mittels der Haversine-Formel in Distanzen zwischen den Städten umgerechnet werden. Aus der Reihenfolge der Städte kann die Wegstrecke mittels der Distanzen direkt berechnet werden.
 
-    Um das Abkühhlen zu simulieren wird die Temperatur nach einer gegeben Anzahl von Flips mit einem Cooling-Parameter $C$ multipliziert. Je näher er an 1 liegt, desto langsamer wird der Körper abgekühlt.  Die Anzahl der Flips ist zu $100N$ oder $10N$ erfolgreiche gewählt, je nachdem, was zuerst eintritt. Die Temperatur startet bei $10000$. Damit ist sie deutlich größer als eine typische Längenänderunen, was die Qualität der Ergebnisse verbessert. Für jeden Cooling-Parameter werden $100$ Simulationen durchgeführt, um die Statistik der Flips beschreiben zu können.
+    Um das Abkühlen zu simulieren wird die Temperatur nach einer gegeben Anzahl von Flips mit einem Cooling-Parameter $C$ multipliziert. Je näher er an 1 liegt, desto langsamer wird der Körper abgekühlt.  Die Anzahl der Flips ist zu $100N$ oder $10N$ erfolgreiche gewählt, je nachdem, was zuerst eintritt. Die Temperatur startet bei $10000$. Damit ist sie deutlich größer als eine typische Längenänderung, was die Qualität der Ergebnisse verbessert. Für jeden Cooling-Parameter werden $100$ Simulationen durchgeführt, um die Statistik der Flips beschreiben zu können.
     }
     \column{0.05}
 \end{columns}
