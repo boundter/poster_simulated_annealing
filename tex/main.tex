@@ -2,14 +2,13 @@
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{enumitem}
 
 \title{\Huge\textbf{Simulated Annealing}}
 \author{\huge\textbf{Erik Teichmann}}
 \date{\today}
 \institute{\huge Universität Potsdam}
 \tikzposterlatexaffectionproofoff
-
-\renewcommand{\labelenumi}{\roman{enumi}}
 
 \usetheme{Basic}
 \usetitlestyle{Empty}
@@ -43,7 +42,7 @@
   \column{0.8}
   \block{Hintergrund}
   {
-    Simulated Annealing ist ein Verfahren der Numerik. Es verwendet eine Idee der Festkörperphysik. Um möglichst reine und gleichmäßige Kristalle herzustellen wird ein Festkörper erhitzt und dann langsam abgekühlt. Durch das langsame Kühlen finden die Moleküle ihren niedrigsten energetischen Zustand besser, als durch ein schnelles Abkühlen.
+    Simulated Annealing ist ein Verfahren der Numerik. Es verwendet eine Idee der Festkörperphysik: Um möglichst reine und gleichmäßige Kristalle herzustellen wird ein Festkörper erhitzt und dann langsam abgekühlt. Durch das langsame Kühlen finden die Moleküle ihren niedrigsten energetischen Zustand besser, als durch ein schnelles Abkühlen.
 
     Das Simulated Annealing verwendet dasselbe Prinzip des Abkühlens, aber für Probleme der Optimierung. Die Energie ist dabei eine Kostenfunktion, also zum Beispiel eine Weglänge. Die Temperatur regelt die Änderung des Zustandes: für hohe Temperaturen ist es wahrscheinlicher, den Zustand zu wechseln, als für niedrige. Die Zustandsänderung kann dabei auch zu einer Erhöhung der Energie führen, wobei solche Änderungen für niedrige Temperaturen immer unwahrscheinlicher werden. So kann aus lokalen Minima der Energie entkommen werden, um das globale Minimum zu finden.
     }
@@ -58,7 +57,7 @@
 
     Der kürzeste Weg durch 76 deutsche Städte soll gefunden werden und die Unterschiede zwischen zwei Zustandsänderungen sollen charakterisiert werden. Die Zustandsänderungen sind Flips in der Reihenfolge der Städte:
 
-    \begin{enumerate}
+    \begin{enumerate}[leftmargin=2.5cm, label=\arabic*)]
       \item Die Reihenfolge von zwei zufälligen Städten wird vertauscht
       \item Die Reihenfolge zwischen zwei zufälligen Städten wird vertauscht
     \end{enumerate}
