@@ -8,13 +8,12 @@
 \date{\today}
 \institute{\huge Universität Potsdam}
 \tikzposterlatexaffectionproofoff
-\usepackage{blindtext}
-\usepackage{comment}
+
 \renewcommand{\labelenumi}{\roman{enumi}}
 
 \usetheme{Basic}
+\usetitlestyle{Empty}
 \colorlet{backgroundcolor}{white}
-
 
  \defineblockstyle{Default1}{
     titlewidthscale=1, bodywidthscale=1, titlecenter,
@@ -52,8 +51,8 @@
 \end{columns}
 
 \begin{columns}
-  \column{0.4}
-  \block{Problemstellung}
+  \column{0.5}
+  \block[titleoffsety=-4cm, bodyoffsety=-4cm]{Problemstellung}
   {
     Das ``Traveling-Salesman'' Problem soll mithilfe von Simulated Annealing gelöst werden. Es beschreibt die geschlossene Wegstrecke durch mehrere Städte, wobei keine Stadt mehrmals besucht werden darf. Die brute-force Lösung skaliert wie $N!$ und ist somit ungeeignet für eine große Anzahl von Städten.
 
@@ -71,9 +70,8 @@
     angenommen, wobei $T$ die Temperatur ist. Das erinnert an die Boltzmann-Verteilung.
   }
 
-  \column{0.05}
   \column{0.5}
-  \block{Simulation}
+  \block[titleoffsety=-4cm, bodyoffsety=-4cm]{Simulation}
   {
     Die numerische Simulation wird in einem C++-Programm durchgeführt. Zuerst müssen die Längen- und Breitengrade der Städte mittels der Haversine-Formel in Distanzen zwischen den Städten umgerechnet werden. Aus der Reihenfolge der Städte kann die Wegstrecke mittels der Distanzen direkt berechnet werden.
 
@@ -84,7 +82,7 @@
 
 \begin{columns}
   \column{0.5}
-  \block[titleoffsety=-9cm, bodyoffsety=-9cm]{Simulationsdauer}
+  \block[titleoffsety=-11cm, bodyoffsety=-11cm]{Simulationsdauer}
   {
     \begin{minipage}{0.6\linewidth}
       \begin{tikzfigure}[Simulationsdauer für die verschiedenen Flip-Typen\label{fig:time}]
@@ -98,7 +96,7 @@
     \end{minipage}
   }
   \column{0.5}
-  \block{Qualität der verschiedenen Flips}
+  \block[titleoffsety=-2cm, bodyoffsety=-2cm]{Qualität der verschiedenen Flips}
   {
   \begin{minipage}{0.6\linewidth}
     \begin{tikzfigure}[Verteilung der gefunden Wegstrecken für Flips vom Typ 1\label{fig:dist_1}]
