@@ -30,6 +30,21 @@
     \end{scope}
 }
 \useblockstyle{Default1}
+\makeatletter
+\renewenvironment{tikzfigure}[1][]{
+  \def \rememberparameter{#1}
+  \vspace{10pt}
+  \refstepcounter{figurecounter}
+  \begin{center}
+  }{
+    \ifx\rememberparameter\@empty
+    \else %nothing
+    \\[10pt]
+    { Fig.~\thefigurecounter: \rememberparameter}
+    \fi
+  \end{center}
+}
+\makeatother
 
 
 \begin{document}
