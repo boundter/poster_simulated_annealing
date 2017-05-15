@@ -4,6 +4,9 @@ from scipy.optimize import curve_fit
 import csv
 import os
 
+plt.rcParams["figure.figsize"] = [8, 5]
+plt.rcParams['font.size'] = 20
+
 # All our data-files are saved in the folder data
 os.chdir('../data')
 files = os.listdir('.')
@@ -68,4 +71,5 @@ ax.set_ylim(0., 25.)
 ax.legend(loc='best')
 
 os.chdir('../plt')
+fig.tight_layout()
 fig.savefig('time.pdf', transparent=True, dpi=300)

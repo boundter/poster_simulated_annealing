@@ -5,6 +5,8 @@ from scipy.special import erf
 import csv
 import os
 
+plt.rcParams["figure.figsize"] = [8, 5]
+plt.rcParams['font.size'] = 20
 
 cm = plt.get_cmap('copper')
 
@@ -74,7 +76,7 @@ flip_2 = np.array([x[1:] for x in data_list if x[0] == 2])
 
 fig, ax = plt.subplots()
 ax.set_xlabel('Weglänge [km]')
-ax.set_ylabel('Wahrscheinlichkeitsdichte')
+ax.set_ylabel(r'Wahrscheinlichkeit/$10^{-5}$')
 ax.grid()
 for element in flip_1:
     values = np.sort(element[1:])
@@ -83,19 +85,19 @@ for element in flip_1:
     cumul = np.cumsum(indices/points)
     popt, pcov = curve_fit(Errf, values, cumul, [4500, 1000])
     x = np.linspace(l_min, 6500, 500)
-    ax.plot(x, GaussianDistribution(x, popt[0], popt[1]),
+    ax.plot(x, GaussianDistribution(x, popt[0], popt[1])/1e-5,
             label=r'$C=%.3f, \mu=%.1f, \sigma=%.1f$' % (element[0], popt[0], popt[1]))
     update_colors(ax)
 
 ax.set_xlim(4000, 6500)
-ax.set_ylim(0., 4*1e-5)
-ax.legend(loc='best')
+ax.set_ylim(0., 4)
+ax.legend(loc='best', fontsize=14)
 fig.tight_layout()
 fig.savefig('../plt/distribution_1.pdf', transparent=True, dpi=300)
 
 fig, ax = plt.subplots()
 ax.set_xlabel('Weglänge [km]')
-ax.set_ylabel('Wahrscheinlichkeit')
+ax.set_ylabel(r'Wahrscheinlichkeit/$10^{-5}$')
 ax.grid()
 for element in flip_2:
     values = np.sort(element[1:])
@@ -104,12 +106,12 @@ for element in flip_2:
     cumul = np.cumsum(indices/points)
     popt, pcov = curve_fit(Errf, values, cumul, [4500, 1000])
     x = np.linspace(l_min, 6500, 500)
-    ax.plot(x, GaussianDistribution(x, popt[0], popt[1]),
+    ax.plot(x, GaussianDistribution(x, popt[0], popt[1])/1e-5,
             label=r'$C=%.3f, \mu=%.1f, \sigma=%.1f$' % (element[0], popt[0], popt[1]))
     update_colors(ax)
 
 ax.set_xlim(4000, 6500)
-ax.set_ylim(0., 4*1e-5)
-ax.legend(loc='best')
+ax.set_ylim(0., 4)
+ax.legend(loc='best', fontsize=14)
 fig.tight_layout()
 fig.savefig('../plt/distribution_2.pdf', transparent=True, dpi=300)
